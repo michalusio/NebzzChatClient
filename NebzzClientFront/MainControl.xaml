@@ -1,0 +1,56 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NebzzClientFront"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="NebzzClientFront.MainControl"
+             mc:Ignorable="d" 
+             MinHeight="500"
+             MinWidth="500"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <System:Double x:Key="FontSize">14</System:Double>
+        <Thickness x:Key="BorderThickness">0,2</Thickness>
+    </UserControl.Resources>
+    <DockPanel>
+        <ItemsControl x:Name="listUsers" HorizontalAlignment="Right" DockPanel.Dock="Right" Width="150" ItemsSource="{Binding Users}" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderThickness="{DynamicResource BorderThickness}">
+                        <TextBlock Text="{Binding Username}" Margin="4,0,0,0" Foreground="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" FontSize="{DynamicResource FontSize}" />
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <DockPanel>
+            <TextBox x:Name="textBoxMessage" DockPanel.Dock="Bottom" PreviewKeyDown="TextBoxMessage_PreviewKeyDown"/>
+            <ItemsControl x:Name="listMessages" ItemsSource="{Binding Messages}" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderThickness="{DynamicResource BorderThickness}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding MetaInfo}" DockPanel.Dock="Top" Grid.ColumnSpan="2" Foreground="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" FontWeight="Bold" FontSize="{DynamicResource FontSize}"/>
+                                <TextBlock Text="{Binding Text}" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Row="1" FontSize="{DynamicResource FontSize}"/>
+                                <TextBlock Text="{Binding Thumbnail.Title, TargetNullValue={x:Null}}" DockPanel.Dock="Top" Grid.Row="2" Grid.ColumnSpan="2" Foreground="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" FontWeight="Bold" FontSize="{DynamicResource FontSize}"/>
+                                <TextBlock Text="{Binding Thumbnail.Description, TargetNullValue={x:Null}}" Grid.Column="1" Grid.Row="3" Foreground="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" FontSize="{DynamicResource FontSize}"/>
+                                <Image Source="{Binding Thumbnail.Image, IsAsync=True, TargetNullValue={x:Null}}" Grid.Row="4" Grid.ColumnSpan="2" MaxWidth="256" MaxHeight="256"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
+    </DockPanel>
+</UserControl>
